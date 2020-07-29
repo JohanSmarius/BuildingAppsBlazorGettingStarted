@@ -1,0 +1,29 @@
+﻿@page "/product"
+
+@using AnimalShelter.Shared
+
+    <div>
+        <p><span>Name:</span>@Product.Name</p>
+        <p><span>Price:</span>@Product.Price</p>
+        <p><span>Vat percentage:</span>@Product.VatPercentage</p>
+        <p><span>Net price:</span>@Product.NetPrice</p>
+    </div>
+
+
+@code {
+
+    public Product Product { get; set; }
+
+    protected override void OnInitialized()
+    {
+        Product = new Product
+        {
+            Id = 1,
+            Name = "Dogfood",
+            Price = 10.99m,
+            VatPercentage = 21,
+            ProductImageUrl = "https://upload.wikimedia.org/wikipedia/commons/4/4f/Hundefutter.jpg"
+        };
+    }
+
+}

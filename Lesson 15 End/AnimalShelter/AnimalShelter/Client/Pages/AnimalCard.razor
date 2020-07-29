@@ -1,0 +1,46 @@
+﻿@page "/animal"
+
+@using AnimalShelter.Shared
+
+<div class="card" style="width: 18rem;">
+    <img src="@CurrentAnimal.PictureUrl" class="card-img-top" alt="My Picture">
+    <div class="card-body">
+        <h5 class="card-title">@CurrentAnimal.Name</h5>
+        <p class="card-text">
+            @if (CurrentAnimal.AnimalKind == AnimalKind.Dog)
+            {
+                @: I'm a @(CurrentAnimal.Gender == Gender.Male?"male":"female") dog of @CurrentAnimal.Age years old.
+            }
+            else
+            {
+                @: I'm a @(CurrentAnimal.Gender == Gender.Male?"male":"female") cat of @CurrentAnimal.Age years old.
+            }
+        </p>
+        <a href="" class="btn btn-primary">Details</a>
+
+        <button class="btn btn-primary">Adopt</button>
+    </div>
+</div>
+
+@code {
+
+    public Animal CurrentAnimal { get; set; }
+
+    protected override void OnInitialized()
+    {
+        CurrentAnimal = new Animal
+        {
+            Id = 1,
+            Name = "Max",
+            AnimalKind = AnimalKind.Dog,
+            EstimatedAge = 1,
+            PictureUrl = "https://cdn.pixabay.com/photo/2017/06/24/09/13/dog-2437110__340.jpg",
+            Gender = Gender.Male
+        };
+    }
+
+
+
+
+
+}
