@@ -67,7 +67,8 @@
     private async Task OnDeleteProduct(Product product)
     {
         // Confirm
-        var confirmed = await JsRuntime.InvokeAsync<bool>("animalshelterjavascriptfunctions.confirm", $"Are you sure you want to delete {product.Name}?");
+        var confirmed = await JsRuntime.InvokeAsync<bool>("animalshelterjavascriptfunctions.confirm", 
+            $"Are you sure you want to delete {product.Name}?");
 
         if (confirmed)
         {
