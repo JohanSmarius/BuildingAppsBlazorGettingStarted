@@ -1,0 +1,35 @@
+﻿@using AnimalShelter.Shared
+
+<div class="card" style="width: 18rem;">
+    <img src="@CurrentAnimal.PictureUrl" class="card-img-top" alt="My Picture">
+    <div class="card-body">
+        <h5 class="card-title">@CurrentAnimal.Name</h5>
+        <p class="card-text">
+            @if (CurrentAnimal.AnimalKind == AnimalKind.Dog)
+            {
+                @: I'm a @(CurrentAnimal.Gender == Gender.Male?"male":"female") dog of @CurrentAnimal.Age years old.
+            }
+            else
+            {
+                @: I'm a @(CurrentAnimal.Gender == Gender.Male?"male":"female") cat of @CurrentAnimal.Age years old.
+            }
+        </p>
+        <a href="" class="btn btn-primary">Details</a>
+
+        <button class="btn btn-primary" @onclick="Adopt">Adopt</button>
+    </div>
+</div>
+
+@code {
+    
+    [Parameter]
+    public Animal CurrentAnimal { get; set; }
+    
+    [Parameter]
+    public EventCallback<Animal> OnAnimalAdopted { get; set; }
+
+    private async Task Adopt()
+    {
+        await OnAnimalAdopted.InvokeAsync(CurrentAnimal);
+    }
+}

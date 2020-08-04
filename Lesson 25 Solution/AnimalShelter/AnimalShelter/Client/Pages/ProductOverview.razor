@@ -1,0 +1,58 @@
+﻿@page "/productoverview"
+@using AnimalShelter.Shared
+@using AnimalShelter.Client.Services
+
+<h3>ProductOverview</h3>
+
+<table class="table table-striped">
+    <thead>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Vat %</th>
+    <th>Net price</th>
+    <th></th>
+    </thead>
+    <tbody>
+
+        @foreach (var product in AvailableProducts)
+        {
+            <ProductListRow Product="product" OnProductDeleted="OnDeleteProduct"/>
+        }
+
+    </tbody>
+
+</table>
+
+<button class="btn btn-primary">Add Product</button>
+
+
+@code {
+
+    private List<Product> AvailableProducts { get; set; } = new List<Product>();
+
+    [Inject]
+    IJSRuntime JsRuntime { get; set; }
+
+    [Inject]
+    IProductService ProductService { get; set; }
+    
+    protected override void OnInitialized()
+    {
+        AvailableProducts = ProductService.GetAllProducts();
+    }
+    
+    private async Task OnDeleteProduct(Product product)
+    {
+        // Confirm
+        var confirmed = await JsRuntime.InvokeAsync<bool>("animalshelterjavascriptfunctions.confirm", 
+            $"Are you sure you want to delete {product.Name}?");
+
+        if (confirmed)
+        {
+            ProductService.DeleteProduct(product);
+        }
+    }
+
+    
+
+}

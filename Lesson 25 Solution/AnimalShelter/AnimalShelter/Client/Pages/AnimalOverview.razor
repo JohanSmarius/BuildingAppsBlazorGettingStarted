@@ -1,0 +1,49 @@
+﻿@page "/animaloverview"
+@using AnimalShelter.Shared
+@using AnimalShelter.Client.Services
+
+
+
+<h3>Animals</h3>
+
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 row-cols-xl-5">
+
+
+    @foreach (var animal in AnimalsInShelter)
+    {
+        <div class="col mb-4">
+            <AnimalCard CurrentAnimal="animal" OnAnimalAdopted="AdoptAnimal" />
+        </div>
+    }
+</div>
+
+<button class="btn btn-primary">Add Animal</button>
+
+
+@code {
+
+    private IEnumerable<Animal> AnimalsInShelter { get; set; }
+
+    [Inject] 
+    private IJSRuntime JsRuntime { get; set; }
+
+    [Inject]
+    private IAnimalService AnimalService { get; set; }
+
+    protected override void OnInitialized()
+    {
+        AnimalsInShelter = AnimalService.GetAllAnimals();
+    }
+
+    private async Task AdoptAnimal(Animal animalToAdopt)
+    {
+        var confirmed = await JsRuntime.InvokeAsync<bool>("animalshelterjavascriptfunctions.confirm", $"Are you sure you want {animalToAdopt.Name} to be adopted?");
+
+        if (confirmed)
+        {
+            // Delete the animal
+            AnimalService.AdoptAnimal(animalToAdopt);
+        }
+    }
+}

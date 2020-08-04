@@ -1,0 +1,79 @@
+﻿@page "/productoverview"
+@using AnimalShelter.Shared
+
+<h3>ProductOverview</h3>
+
+<table class="table table-striped">
+    <thead>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Vat %</th>
+    <th>Net price</th>
+    <th></th>
+    </thead>
+    <tbody>
+
+        @foreach (var product in AvailableProducts)
+        {
+            <ProductListRow Product="product" OnProductDeleted="OnDeleteProduct"/>
+        }
+
+    </tbody>
+
+</table>
+
+<button class="btn btn-primary">Add Product</button>
+
+
+@code {
+
+    private List<Product> AvailableProducts { get; set; } = new List<Product>();
+
+    [Inject]
+    IJSRuntime JsRuntime { get; set; }
+    
+    protected override void OnInitialized()
+    {
+        AvailableProducts = new List<Product>()
+        {
+            new Product
+            {
+                Id = 1,
+                Name = "Dogfood",
+                Price = 10.99m,
+                VatPercentage = 21,
+                ProductImageUrl = "https://upload.wikimedia.org/wikipedia/commons/4/4f/Hundefutter.jpg"
+            },
+            new Product
+            {
+                Id = 2,
+                Name = "Catfood",
+                Price = 8.99m,
+                VatPercentage = 21,
+                ProductImageUrl =
+                    "https://upload.wikimedia.org/wikipedia/commons/1/16/Whiskas_cat%27s_petfood_with_chicken_dry.jpg"
+            },
+            new Product
+            {
+                Id = 3,
+                Name = "Cat litter 50 liter",
+                Price = 15.12m,
+                VatPercentage = 21,
+                ProductImageUrl = "https://www.publicdomainpictures.net/pictures/30000/velka/cat-litter.jpg"
+            }
+        };
+    }
+    
+    private async Task OnDeleteProduct(Product product)
+    {
+        // Confirm
+        var confirmed = await JsRuntime.InvokeAsync<bool>("animalshelterjavascriptfunctions.confirm", 
+            $"Are you sure you want to delete {product.Name}?");
+
+        if (confirmed)
+        {
+            AvailableProducts.Remove(product);
+        }
+    }
+
+}
