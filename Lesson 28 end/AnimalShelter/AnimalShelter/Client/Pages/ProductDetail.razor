@@ -1,0 +1,97 @@
+﻿@page "/productdetail"
+@page "/productdetail/{Id:int}"
+@using AnimalShelter.Shared
+@using AnimalShelter.Client.Services
+
+<h3>Product Detail</h3>
+
+<EditForm Model="@Product" OnValidSubmit="HandleValidSubmit">
+
+    <div class="form-group">
+        <label for="name">Name:</label>
+        <InputText id="name" @bind-Value="Product.Name" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label for="price">Price</label>
+        <InputNumber id="price" @bind-Value="Product.Price" class="form-control" />
+    </div>
+    <div class="form-group">
+        <label for="vatPercentage">VAT Percentage</label>
+        <InputNumber id="vatPercentage" @bind-Value="Product.VatPercentage" class="form-control"/>
+    </div>
+    
+    <div class="form-group">
+        <label for="netPrice">Net price</label>
+        <label id="netPrice" class="form-control">@Product.NetPrice</label>
+    </div>
+
+    <div class="form-group">
+        <label for="pictureUrl">Picture</label>
+        <InputText id="pictureUrl" @bind-Value="Product.ProductImageUrl" class="form-control" />
+    </div>
+    
+    @if (!string.IsNullOrEmpty(Product.ProductImageUrl))
+    {
+        <div class="form-group">
+            <img src="@Product.ProductImageUrl" width="300" height="300"/>
+        </div>
+    }
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    <button type="button" class="btn btn-secondary" @onclick="MoveToOverview">Back to overview</button>
+
+</EditForm>
+
+
+@code {
+
+    [Parameter]
+    public int? Id { get; set; }
+    
+    [Inject]
+    private NavigationManager navigationManager { get; set; }
+
+    [Inject]
+    private IProductService ProductService { get; set; }
+  
+    public Product Product { get; set; } = new Product();
+
+    protected override void OnParametersSet()
+    {
+        if (Id.HasValue)
+        {
+            Product = ProductService.GetProduct(Id.Value);
+        }
+    }
+
+    private void HandleValidSubmit()
+    {
+        if (Id.HasValue)
+        {
+            UpdateProduct();
+        }
+        else
+        {
+            CreateProduct();
+        }
+
+    }
+
+    private void MoveToOverview()
+    {
+        navigationManager.NavigateTo("/productoverview");
+    }
+
+    private void UpdateProduct()
+    {
+        MoveToOverview();
+    }
+
+    private void CreateProduct()
+    {
+        ProductService.AddProduct(Product);
+        
+        MoveToOverview();
+    }
+}
