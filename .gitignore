@@ -33,6 +33,10 @@ bld/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
+**/.vs/
+.vscode/
+**/.vscode/
+
 # Uncomment if you have tasks that create the project's static files in wwwroot
 #wwwroot/
 
@@ -349,28 +353,28 @@ MigrationBackup/
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
 
-
-.idea/**/workspace.xml
-.idea/**/tasks.xml
-.idea/**/usage.statistics.xml
-.idea/**/dictionaries
-.idea/**/shelf
+**/.idea
+**/.idea/**/workspace.xml
+**/.idea/**/tasks.xml
+**/.idea/**/usage.statistics.xml
+**/.idea/**/dictionaries
+**/.idea/**/shelf
 
 # Generated files
-.idea/**/contentModel.xml
+**/.idea/**/contentModel.xml
 
 # Sensitive or high-churn files
-.idea/**/dataSources/
-.idea/**/dataSources.ids
-.idea/**/dataSources.local.xml
-.idea/**/sqlDataSources.xml
-.idea/**/dynamic.xml
-.idea/**/uiDesigner.xml
-.idea/**/dbnavigator.xml
+**/.idea/**/dataSources/
+**/.idea/**/dataSources.ids
+**/.idea/**/dataSources.local.xml
+**/.idea/**/sqlDataSources.xml
+**/.idea/**/dynamic.xml
+**/.idea/**/uiDesigner.xml
+**/.idea/**/dbnavigator.xml
 
 # Gradle
-.idea/**/gradle.xml
-.idea/**/libraries
+**/.idea/**/gradle.xml
+**/.idea/**/libraries
 
 # Gradle and Maven with auto-import
 # When using Gradle or Maven with auto-import, you should exclude module files,
@@ -389,7 +393,7 @@ MigrationBackup/
 cmake-build-*/
 
 # Mongo Explorer plugin
-.idea/**/mongoSettings.xml
+**/.idea/**/mongoSettings.xml
 
 # File-based project format
 *.iws
@@ -417,28 +421,3 @@ fabric.properties
 
 # Android studio 3.1+ serialized cache file
 .idea/caches/build_file_checksums.ser
-/Lesson 15 Begin/AnimalShelter/.idea/.idea.AnimalShelter
-/Lesson 15 End/AnimalShelter/.idea/.idea.AnimalShelter
-/Starting Point Own Code/AnimalShelter/.idea/.idea.AnimalShelter
-/Lesson 17 end/AnimalShelter/.idea/.idea.AnimalShelter
-/Lesson 16 Begin/AnimalShelter/.idea/.idea.AnimalShelter
-/Lesson 16 End/AnimalShelter/.idea/.idea.AnimalShelter
-/Lesson 17 Solution/AnimalShelter/.idea/.idea.AnimalShelter
-/Lesson 18 end/AnimalShelter/.idea/.idea.AnimalShelter
-/Lesson 18 end/AnimalShelter/.idea/config
-/Lesson 19 Solution/AnimalShelter/.idea
-/Lesson 20 end/AnimalShelter/.idea
-/Lesson 21 Solution/AnimalShelter/.idea
-/Lesson 24 Begin/AnimalShelter/.idea
-/Lesson 24 End/AnimalShelter/.idea
-/Lesson 25 Solution/AnimalShelter/.idea
-/Lesson 24 Recording/AnimalShelter/.idea/.idea.AnimalShelter
-/Lesson 24 Recording/AnimalShelter/.idea/config
-/Lesson 24 Recording/AnimalShelter
-/Lesson 26 End/AnimalShelter/.idea
-/Lesson 27 Solution/AnimalShelter/.idea
-/Lesson 26 recording/AnimalShelter/.idea
-/Lesson 26 recording/AnimalShelter
-/Lesson 28 end/AnimalShelter/.idea
-/Lesson 27 Solution/AnimalShelter/.vscode/launch.json
-/Lesson 29 Solution/AnimalShelter/.idea
