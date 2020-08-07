@@ -1,0 +1,35 @@
+﻿@using AnimalShelter.Shared
+
+    <tr>
+        <td>@Product.Name</td>
+        <td>@Product.Price</td>
+        <td>@Product.VatPercentage</td>
+        <td>@Product.NetPrice</td>
+        
+        <td><button type="button" class="btn btn-primary" @onclick="ShowDetails">Details</button> 
+            <button class="btn btn-danger" @onclick="DeleteProduct">Delete</button></td>
+    </tr>
+
+
+@code {
+    [Parameter]
+    public Product Product { get; set; }
+    
+    [Parameter]
+    public EventCallback<Product> OnProductDeleted { get; set; }
+    
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+
+    private void DeleteProduct()
+    {
+        OnProductDeleted.InvokeAsync(Product);
+    }
+    
+    private void ShowDetails()
+    {
+        NavigationManager.NavigateTo($"/ProductDetail/{Product.Id}");
+    }
+
+
+}
