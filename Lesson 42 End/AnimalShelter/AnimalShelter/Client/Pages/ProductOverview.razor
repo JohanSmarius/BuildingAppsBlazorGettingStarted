@@ -1,0 +1,84 @@
+﻿@page "/productoverview"
+@using AnimalShelter.Shared
+@using AnimalShelter.Client.Services
+@using Microsoft.AspNetCore.Authorization
+
+@attribute [Authorize]
+
+<h3>ProductOverview</h3>
+
+@if (!AvailableProducts.Any())
+{
+    <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+}
+else
+{
+    <table class="table table-striped">
+        <thead>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Vat %</th>
+        <th>Net price</th>
+        <th></th>
+        </thead>
+        <tbody>
+
+            @foreach (var product in AvailableProducts)
+            {
+                <ProductListRow Product="product" OnProductDeleted="OnDeleteProduct" />
+            }
+
+        </tbody>
+
+    </table>
+
+    <button class="btn btn-primary" @onclick="AddProduct">Add Product</button>
+}
+
+
+@code {
+
+    private List<Product> AvailableProducts { get; set; } = new List<Product>();
+
+    [Inject]
+    IJSRuntime JsRuntime { get; set; }
+
+    [Inject]
+    IProductService ProductService { get; set; }
+
+    [Inject]
+    private NavigationManager NavigationManager { get; set; }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        AvailableProducts = await ProductService.GetAllProducts();
+    }
+
+    private async Task OnDeleteProduct(Product product)
+    {
+        // Confirm
+        var confirmed = await JsRuntime.InvokeAsync<bool>("animalshelterjavascriptfunctions.confirm",
+            $"Are you sure you want to delete {product.Name}?");
+
+        if (confirmed)
+        {
+            await ProductService.DeleteProduct(product);
+
+            AvailableProducts = await ProductService.GetAllProducts();
+        }
+    }
+
+    private void AddProduct()
+    {
+        NavigationManager.NavigateTo("/ProductDetail");
+    }
+
+
+
+
+}
