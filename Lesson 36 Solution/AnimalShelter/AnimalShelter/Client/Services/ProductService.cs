@@ -20,29 +20,29 @@ namespace AnimalShelter.Client.Services
 
         public async Task<List<Product>> GetAllProducts()
         {
-            var response = await _httpClient.GetFromJsonAsync<Product[]>("api/Products");
+            var response = await _httpClient.GetFromJsonAsync<Product[]>("api/Product");
             return response.ToList();
 
         }
 
         public async Task<Product> GetProduct(int id)
         {
-            return await _httpClient.GetFromJsonAsync<Product>($"api/Products/{id}");
+            return await _httpClient.GetFromJsonAsync<Product>($"api/Product/{id}");
         }
 
         public async Task DeleteProduct(Product product)
         {
-            await _httpClient.DeleteAsync($"api/Products/{product.Id}");
+            await _httpClient.DeleteAsync($"api/Product/{product.Id}");
         }
 
         public async Task AddProduct(Product newProduct)
         {
-            await _httpClient.PostAsJsonAsync<Product>("api/Products", newProduct);
+            await _httpClient.PostAsJsonAsync<Product>("api/Product", newProduct);
         }
 
         public async Task UpdateProduct(Product product)
         {
-            await _httpClient.PutAsJsonAsync<Product>($"api/Products/{product.Id}", product);
+            await _httpClient.PutAsJsonAsync<Product>($"api/Product/{product.Id}", product);
         }
     }
 }

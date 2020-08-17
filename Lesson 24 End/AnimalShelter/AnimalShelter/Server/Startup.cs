@@ -34,7 +34,7 @@ namespace AnimalShelter.Server
                     Configuration.GetConnectionString("DefaultConnection")));
 
 #region Authentication
-            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
                 .AddEntityFrameworkStores<ApplicationDbContext>();
 
             services.AddIdentityServer()

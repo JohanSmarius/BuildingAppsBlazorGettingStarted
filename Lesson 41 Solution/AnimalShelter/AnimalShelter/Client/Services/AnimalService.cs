@@ -21,29 +21,29 @@ namespace AnimalShelter.Client.Services
         public async Task<List<Animal>> GetAllAnimals()
         {
 
-            var result = await _httpClient.GetFromJsonAsync<Animal[]>("api/animals");
+            var result = await _httpClient.GetFromJsonAsync<Animal[]>("api/Animal");
 
             return result.ToList();
         }
 
         public async Task<Animal> GetAnimal(int id)
         {
-            return await _httpClient.GetFromJsonAsync<Animal>($"api/animals/{id}");
+            return await _httpClient.GetFromJsonAsync<Animal>($"api/Animal/{id}");
         }
 
         public async Task AdoptAnimal(Animal animalToAdopt)
         {
-            await _httpClient.DeleteAsync($"api/animals/{animalToAdopt.Id}");
+            await _httpClient.DeleteAsync($"api/Animal/{animalToAdopt.Id}");
         }
 
         public async Task AddAnimal(Animal newAnimal)
         {
-            await _httpClient.PostAsJsonAsync<Animal>("api/Animals", newAnimal);
+            await _httpClient.PostAsJsonAsync<Animal>("api/Animal", newAnimal);
         }
 
         public async Task Update(Animal animal)
         {
-            await _httpClient.PutAsJsonAsync<Animal>($"api/Animals/{animal.Id}", animal);
+            await _httpClient.PutAsJsonAsync<Animal>($"api/Animal/{animal.Id}", animal);
         }
 
 
